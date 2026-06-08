@@ -59,9 +59,27 @@ function Index() {
       alert("📧 Please enter a valid email address.");
       return;
     }
-    alert(
-      `✨ Hello ${form.name}! ✨\n\nThank you for choosing Trackxis Namibia.\nYour Polo 6 TSI request:\n📅 ${form.pickup} → ${form.ret}\n📍 ${form.location}\n💰 NAD ${total.toLocaleString()} (estimated)\n\nWe'll contact you within 2 hours at ${form.phone} or ${form.email}. Drive with joy! 🚗💨`
+    if (!form.pickup || !form.ret || !form.name || !form.phone) {
+      alert("📝 Please fill in all required fields.");
+      return;
+    }
+
+    const subject = encodeURIComponent("Polo 6 TSI Booking Request — Trackxis Namibia");
+    const body = encodeURIComponent(
+      `Hello Trackxis Team,\n\nI would like to book the Polo 6 TSI.\n\n` +
+      `Name: ${form.name}\n` +
+      `Email: ${form.email}\n` +
+      `Phone: ${form.phone}\n` +
+      `Pick-up: ${form.pickup}\n` +
+      `Return: ${form.ret}\n` +
+      `Location: ${form.location}\n` +
+      `Estimated total: NAD ${total.toLocaleString()}\n` +
+      `\nSpecial requests:\n${form.message || "None"}\n\n` +
+      `Best regards,\n${form.name}`
     );
+
+    const mailto = `mailto:reservations@trackxisnamibia.com?subject=${subject}&body=${body}`;
+    window.location.href = mailto;
   };
 
   return (
@@ -205,7 +223,17 @@ function Index() {
             <div className="spec-card" style={{ textAlign: "left" }}>
               <h3>📍 Trackxis Namibia HQ</h3>
               <p>9 Werner List Street, Windhoek, Namibia</p>
-              <p>📞 +264 81 123 4567 (WhatsApp / Call)</p>
+              <p>📞 +264 81 123 4567 (Call)</p>
+              <p>
+                <a
+                  href="https://wa.me/264811234567"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: "var(--accent)", fontWeight: 600 }}
+                >
+                  💬 WhatsApp us
+                </a>
+              </p>
               <p>✉️ reservations@trackxisnamibia.com</p>
               <p>🕒 Mon–Fri: 8:00 – 18:00 | Sat: 9:00 – 15:00</p>
               <div style={{ marginTop: "1rem", display: "flex", gap: "1rem", fontSize: "1.4rem", color: "var(--accent)" }}>
@@ -215,8 +243,8 @@ function Index() {
               </div>
             </div>
             <div className="spec-card" style={{ textAlign: "left" }}>
-              <h3>🎯 Only Polo 6 TSI? We specialize!</h3>
-              <p>Our fleet is dedicated to the Polo 6 TSI — meaning you always get a perfectly maintained, latest-gen model. No surprises, just excellence.</p>
+              <h3>🎯 Starting with the Polo 6 TSI</h3>
+              <p>Our fleet currently focuses on the Polo 6 TSI — perfectly maintained, latest-gen models. More vehicles coming soon as we grow.</p>
               <p style={{ marginTop: "1rem", fontWeight: 600, color: "var(--accent)" }}>
                 🎁 Weekly discount: 7+ days → 12% off
               </p>
@@ -230,7 +258,7 @@ function Index() {
           <div className="footer-grid">
             <div className="footer-col" style={{ flex: "1 1 260px" }}>
               <h4>🚗 Trackxis Namibia</h4>
-              <p>Your trusted local partner for reliable rentals. Only the Polo 6 TSI — because perfection is worth specializing.</p>
+              <p>Your trusted local partner for reliable rentals. Starting with the Polo 6 TSI — because quality drives growth.</p>
             </div>
             <div className="footer-col">
               <h4>Quick links</h4>
