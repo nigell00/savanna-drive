@@ -59,9 +59,27 @@ function Index() {
       alert("📧 Please enter a valid email address.");
       return;
     }
-    alert(
-      `✨ Hello ${form.name}! ✨\n\nThank you for choosing Trackxis Namibia.\nYour Polo 6 TSI request:\n📅 ${form.pickup} → ${form.ret}\n📍 ${form.location}\n💰 NAD ${total.toLocaleString()} (estimated)\n\nWe'll contact you within 2 hours at ${form.phone} or ${form.email}. Drive with joy! 🚗💨`
+    if (!form.pickup || !form.ret || !form.name || !form.phone) {
+      alert("📝 Please fill in all required fields.");
+      return;
+    }
+
+    const subject = encodeURIComponent("Polo 6 TSI Booking Request — Trackxis Namibia");
+    const body = encodeURIComponent(
+      `Hello Trackxis Team,\n\nI would like to book the Polo 6 TSI.\n\n` +
+      `Name: ${form.name}\n` +
+      `Email: ${form.email}\n` +
+      `Phone: ${form.phone}\n` +
+      `Pick-up: ${form.pickup}\n` +
+      `Return: ${form.ret}\n` +
+      `Location: ${form.location}\n` +
+      `Estimated total: NAD ${total.toLocaleString()}\n` +
+      `\nSpecial requests:\n${form.message || "None"}\n\n` +
+      `Best regards,\n${form.name}`
     );
+
+    const mailto = `mailto:reservations@trackxisnamibia.com?subject=${subject}&body=${body}`;
+    window.location.href = mailto;
   };
 
   return (
