@@ -223,7 +223,17 @@ function Index() {
             <div className="spec-card" style={{ textAlign: "left" }}>
               <h3>📍 Trackxis Namibia HQ</h3>
               <p>9 Werner List Street, Windhoek, Namibia</p>
-              <p>📞 +264 81 123 4567 (WhatsApp / Call)</p>
+              <p>📞 +264 81 123 4567 (Call)</p>
+              <p>
+                <a
+                  href="https://wa.me/264811234567"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: "var(--accent)", fontWeight: 600 }}
+                >
+                  💬 WhatsApp us
+                </a>
+              </p>
               <p>✉️ reservations@trackxisnamibia.com</p>
               <p>🕒 Mon–Fri: 8:00 – 18:00 | Sat: 9:00 – 15:00</p>
               <div style={{ marginTop: "1rem", display: "flex", gap: "1rem", fontSize: "1.4rem", color: "var(--accent)" }}>
@@ -233,8 +243,8 @@ function Index() {
               </div>
             </div>
             <div className="spec-card" style={{ textAlign: "left" }}>
-              <h3>🎯 Only Polo 6 TSI? We specialize!</h3>
-              <p>Our fleet is dedicated to the Polo 6 TSI — meaning you always get a perfectly maintained, latest-gen model. No surprises, just excellence.</p>
+              <h3>🎯 Starting with the Polo 6 TSI</h3>
+              <p>Our fleet currently focuses on the Polo 6 TSI — perfectly maintained, latest-gen models. More vehicles coming soon as we grow.</p>
               <p style={{ marginTop: "1rem", fontWeight: 600, color: "var(--accent)" }}>
                 🎁 Weekly discount: 7+ days → 12% off
               </p>
