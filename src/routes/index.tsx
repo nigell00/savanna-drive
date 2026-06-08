@@ -258,7 +258,7 @@ function Index() {
           <div className="footer-grid">
             <div className="footer-col" style={{ flex: "1 1 260px" }}>
               <h4>🚗 Trackxis Namibia</h4>
-              <p>Your trusted local partner for reliable rentals. Only the Polo 6 TSI — because perfection is worth specializing.</p>
+              <p>Your trusted local partner for reliable rentals. Starting with the Polo 6 TSI — because quality drives growth.</p>
             </div>
             <div className="footer-col">
               <h4>Quick links</h4>
