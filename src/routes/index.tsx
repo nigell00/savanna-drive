@@ -1,6 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import poloHero from "@/assets/polo-hero.jpg";
+import poloSide from "@/assets/polo-side.jpg";
+import poloInterior from "@/assets/polo-interior.jpg";
+import poloRear from "@/assets/polo-rear.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -23,9 +26,11 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const DAILY_PRICE = 950;
+const PRICE_250KM = 500;
+const PRICE_UNLIMITED = 850;
 
 function Index() {
+  const [kmOption, setKmOption] = useState<"250" | "unlimited">("250");
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -44,11 +49,13 @@ function Index() {
     return diff > 0 ? diff : 0;
   }, [form.pickup, form.ret]);
 
+  const dailyRate = kmOption === "250" ? PRICE_250KM : PRICE_UNLIMITED;
+
   const total = useMemo(() => {
-    let t = days * DAILY_PRICE;
+    let t = days * dailyRate;
     if (days >= 7) t = t * 0.88;
     return Math.round(t);
-  }, [days]);
+  }, [days, dailyRate]);
 
   const update = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
     setForm((f) => ({ ...f, [k]: e.target.value }));
@@ -146,10 +153,23 @@ function Index() {
         </section>
 
         <section id="book" className="booking-panel">
-          <div className="price-tag">
-            <span className="daily-price">NAD {DAILY_PRICE}</span>
-            <span className="price-note">/ per day</span>
-            <span className="price-note">• + unlimited km option</span>
+          <div className="price-options">
+            <button
+              type="button"
+              className={`price-option ${kmOption === "250" ? "active" : ""}`}
+              onClick={() => setKmOption("250")}
+            >
+              <span className="option-price">NAD {PRICE_250KM}</span>
+              <span className="option-label">/ day — 250 km included</span>
+            </button>
+            <button
+              type="button"
+              className={`price-option ${kmOption === "unlimited" ? "active" : ""}`}
+              onClick={() => setKmOption("unlimited")}
+            >
+              <span className="option-price">NAD {PRICE_UNLIMITED}</span>
+              <span className="option-label">/ day — unlimited km</span>
+            </button>
           </div>
           <p>✅ Includes basic insurance, 24/7 roadside assistance & free airport delivery (Windhoek)</p>
 
@@ -218,15 +238,26 @@ function Index() {
           </div>
         </section>
 
+        <section id="gallery" style={{ margin: "3rem 0" }}>
+          <h2 className="section-title">📸 The Polo 6 TSI in Action</h2>
+          <p className="section-sub">See what you'll be driving across Namibia.</p>
+          <div className="gallery-grid">
+            <div className="gallery-item"><img src={poloHero} alt="Volkswagen Polo 6 TSI front view" loading="lazy" width={1024} height={1024} /></div>
+            <div className="gallery-item"><img src={poloSide} alt="Volkswagen Polo 6 TSI side profile on Namibian road" loading="lazy" width={1024} height={1024} /></div>
+            <div className="gallery-item"><img src={poloInterior} alt="Volkswagen Polo 6 TSI interior dashboard" loading="lazy" width={1024} height={1024} /></div>
+            <div className="gallery-item"><img src={poloRear} alt="Volkswagen Polo 6 TSI rear view at Etosha" loading="lazy" width={1024} height={1024} /></div>
+          </div>
+        </section>
+
         <section id="contact" style={{ margin: "3rem 0" }}>
           <div className="spec-grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))" }}>
             <div className="spec-card" style={{ textAlign: "left" }}>
               <h3>📍 Trackxis Namibia HQ</h3>
               <p>9 Werner List Street, Windhoek, Namibia</p>
-              <p>📞 +264 81 123 4567 (Call)</p>
+              <p>📞 +264 81 885 1696 (Call / WhatsApp)</p>
               <p>
                 <a
-                  href="https://wa.me/264811234567"
+                  href="https://wa.me/264818851696"
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{ color: "var(--accent)", fontWeight: 600 }}
