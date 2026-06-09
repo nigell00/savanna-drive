@@ -102,6 +102,7 @@ function Index() {
           <nav className="nav-links">
             <a href="#home">Home</a>
             <a href="#specs">Polo 6 TSI</a>
+            <a href="#gallery">Gallery</a>
             <a href="#book">Book now</a>
             <a href="#contact">Contact</a>
           </nav>
@@ -366,6 +367,16 @@ const css = `
 .trackxis .footer-col h4 { color: white; margin-bottom: 1rem; }
 .trackxis .footer-col p { margin-bottom: 0.4rem; }
 .trackxis .copyright { text-align: center; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #2e5345; font-size: 0.85rem; }
+.trackxis .price-options { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.trackxis .price-option { flex: 1 1 200px; background: #fefcf8; border: 2px solid #e2dcd0; border-radius: 1.5rem; padding: 1.2rem 1.5rem; cursor: pointer; transition: var(--transition); display: flex; flex-direction: column; align-items: flex-start; }
+.trackxis .price-option:hover { border-color: var(--accent-light); }
+.trackxis .price-option.active { border-color: var(--accent); background: #fff8f0; box-shadow: 0 4px 12px rgba(230,126,34,0.12); }
+.trackxis .option-price { font-size: 1.8rem; font-weight: 800; color: var(--primary); }
+.trackxis .option-label { font-size: 0.9rem; color: #6f7c74; }
+.trackxis .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin: 2rem 0 3rem; }
+.trackxis .gallery-item { background: linear-gradient(145deg, #f0ede5, #e3ddd2); border-radius: 1.5rem; padding: 0.6rem; box-shadow: var(--card-shadow); transition: var(--transition); }
+.trackxis .gallery-item:hover { transform: translateY(-4px); }
+.trackxis .gallery-item img { width: 100%; height: 240px; object-fit: cover; border-radius: 1.2rem; display: block; }
 @media (max-width: 820px) {
   .trackxis .hero-content h1 { font-size: 2.4rem; }
   .trackxis .navbar { flex-direction: column; gap: 1rem; }
