@@ -5,12 +5,41 @@ import viteReact from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import tsConfigPaths from "vite-tsconfig-paths";
 
-// Explicit Vite config with a top-level `plugins` array so external tooling
-// (e.g. Cloudflare's TanStack Start integration / `@cloudflare/vite-plugin`)
-// can introspect and modify it.
+// Pick the deploy target via env so the same config works on Cloudflare and Vercel.
+//   DEPLOY_TARGET=cloudflare  (default — outputs to ./dist for `wrangler deploy`)
+//   DEPLOY_TARGET=vercel      (outputs to ./.vercel/output, auto-detected by Vercel)
+//   DEPLOY_TARGET=node        (plain Node server in ./dist for self-hosting)
 //
-// To deploy on Cloudflare Workers, run `vite build` then `wrangler deploy`.
-// Wrangler reads `wrangler.toml` at the repo root.
+// Vercel sets the VERCEL=1 env var during builds, so we auto-detect it too.
+const target =
+  process.env.DEPLOY_TARGET ??
+  (process.env.VERCEL ? "vercel" : "cloudflare");
+
+const nitroOptions =
+  target === "vercel"
+    ? { preset: "vercel" as const }
+    : target === "node"
+      ? {
+          preset: "node-server" as const,
+          output: {
+            dir: "dist",
+            serverDir: "dist/server",
+            publicDir: "dist/client",
+          },
+        }
+      : {
+          preset: "cloudflare-module" as const,
+          output: {
+            dir: "dist",
+            serverDir: "dist/server",
+            publicDir: "dist/client",
+          },
+          cloudflare: {
+            nodeCompat: true,
+            deployConfig: true,
+          },
+        };
+
 export default defineConfig({
   server: {
     host: "::",
@@ -29,18 +58,7 @@ export default defineConfig({
         },
       },
     }),
-    nitro({
-      preset: "cloudflare-module",
-      output: {
-        dir: "dist",
-        serverDir: "dist/server",
-        publicDir: "dist/client",
-      },
-      cloudflare: {
-        nodeCompat: true,
-        deployConfig: true,
-      },
-    }),
+    nitro(nitroOptions as Parameters<typeof nitro>[0]),
     viteReact(),
   ],
 });
